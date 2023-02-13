@@ -32,11 +32,12 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
         
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: Build and analyze
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: ./gradlew build sonar --info
 
       - name: 테스트 커버리지를 PR에 코멘트로 등록합니다
         id: jacoco
