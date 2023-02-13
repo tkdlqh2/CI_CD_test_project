@@ -41,9 +41,10 @@ jobs:
       - name: SonarQube Scan
         uses: kitabisa/sonarqube-action@master
         with:
+          projectBaseDir: '/github/workspace'
+        env:
           host: ${{ secrets.SONAR_HOST_URL }}
           login: ${{ secrets.SONAR_TOKEN }}
-          projectBaseDir: '/github/workspace'
 
       - name: 테스트 커버리지를 PR에 코멘트로 등록합니다
         id: jacoco
