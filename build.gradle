@@ -16,8 +16,14 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
-test {
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    jvmArgs '-Dfile.encoding=UTF-8'
+}
 
+test {
     test {
         jacoco {
             destinationFile = file("$buildDir/jacoco/jacoco.exec")
